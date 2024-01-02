@@ -60,16 +60,16 @@ $ ghc --supported-extensions | wc -l
 また，デフォルトで有効になっている拡張などもあります．例えば，`ImplicitPrelude`という拡張はデフォルトで有効になります．現在デフォルトのHaskell 2010をベースにしたモードでGHC 8.4.2を使用する場合，以下の拡張が[デフォルトで有効になります](https://github.com/ghc/ghc/blob/ghc-8.4.2-release/compiler/main/DynFlags.hs#L2022) [^notice-haskell2010-standard-exts] [^notice-default-extensions-by-ghc] [^notice-relaxed-polyrec]．
 
 * [`NondecreasingIndentation`](https://prime.haskell.org/wiki/NondecreasingIndentation): Haskellのレイアウトルールを変更する拡張です．この拡張を有効にすると，ネストされた`do`式の場合，インデントをしなくていいようになります．
-* [`ImplicitPrelude`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#rebindable-syntax-and-the-implicit-prelude-import): 暗黙的に`Prelude`モジュールがインポートされるようになる拡張です．
-* [`MonomorphismRestriction`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#switching-off-the-dreaded-monomorphism-restriction): [単相性制限](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5)を課すようにする拡張です．この制限により，関数束縛でなく型注釈もない束縛変数の型は，デフォルティングルールによって単相化されます．
-* [`TraditionalRecordSyntax`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#traditional-record-syntax): レコード構文を有効にする拡張です．この拡張では，名前付きのフィールドを持つデータ型を定義し，それを使用することが可能になります．
-* [`EmptyDataDecls`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-EmptyDataDecls): コンストラクタを持たないデータ型の定義を許容する拡張です．
-* [`ForeignFunctionInterface`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ffi-chap.html#extension-ForeignFunctionInterface): FFIが使えるようになる拡張です．この拡張により，`foreign import`構文を使用することで，HaskellからCの関数を読み込むことができるようになります．
-* [`PatternGuards`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#pattern-guards): `case`式において，通常のパターンに加えて，`<-`を使用してガードの中でさらにマッチした条件下でパターンマッチができるようになる拡張です．例えば，`case (x, y) of { (True, y) | False <- y -> True; _ -> False }`というような式が書けるようになります．
+* [`ImplicitPrelude`](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#rebindable-syntax-and-the-implicit-prelude-import): 暗黙的に`Prelude`モジュールがインポートされるようになる拡張です．
+* [`MonomorphismRestriction`](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#switching-off-the-dreaded-monomorphism-restriction): [単相性制限](https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-930004.5.5)を課すようにする拡張です．この制限により，関数束縛でなく型注釈もない束縛変数の型は，デフォルティングルールによって単相化されます．
+* [`TraditionalRecordSyntax`](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#traditional-record-syntax): レコード構文を有効にする拡張です．この拡張では，名前付きのフィールドを持つデータ型を定義し，それを使用することが可能になります．
+* [`EmptyDataDecls`](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#extension-EmptyDataDecls): コンストラクタを持たないデータ型の定義を許容する拡張です．
+* [`ForeignFunctionInterface`](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/ffi-chap.html#extension-ForeignFunctionInterface): FFIが使えるようになる拡張です．この拡張により，`foreign import`構文を使用することで，HaskellからCの関数を読み込むことができるようになります．
+* [`PatternGuards`](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#pattern-guards): `case`式において，通常のパターンに加えて，`<-`を使用してガードの中でさらにマッチした条件下でパターンマッチができるようになる拡張です．例えば，`case (x, y) of { (True, y) | False <- y -> True; _ -> False }`というような式が書けるようになります．
 * [`DoAndIfThenElse`](https://prime.haskell.org/wiki/DoAndIfThenElse): `if`式の構文を，`then`と`else`の前に`;`を許容するよう変更する拡張です．これにより，`do`式において`then`や`else`をインデントする必要がなくなります．
 
 [^notice-haskell2010-standard-exts]: Haskell2010標準では，`Haskell2010`というプラグマをサポートすること，またHaskell98から新たにHaskell2010までに取り込まれた機能を切り離した`PatternGuards`/`NoNPlusKPatterns`/`RelaxedPolyRec`/`EmptyDataDecls`/`EmptyDataDecls`という拡張をそれぞれサポートすることが望ましいと規定されています．GHCも`Haskell2010`という拡張を指定できるようになっており，ここにあるほとんどはこの拡張を有効にした場合にも有効になります．
-[^notice-default-extensions-by-ghc]: デフォルトで有効になる拡張のほとんどは，Haskell 2010を元にしたものです．ただし全てがそうというわけではありません．`NondecreasingIndentation`はHaskell標準にはない機能です．またGHCはHaskell 2010で規定されている仕様を全てデフォルトで取り込んでいる訳でもありません．特にHaskell標準ではデータ型の宣言に型制約を書くことができますが，GHCではデフォルトではできません．これを有効にする場合，[`DatatypeContexts`拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-DatatypeContexts)を有効にする必要があります．
+[^notice-default-extensions-by-ghc]: デフォルトで有効になる拡張のほとんどは，Haskell 2010を元にしたものです．ただし全てがそうというわけではありません．`NondecreasingIndentation`はHaskell標準にはない機能です．またGHCはHaskell 2010で規定されている仕様を全てデフォルトで取り込んでいる訳でもありません．特にHaskell標準ではデータ型の宣言に型制約を書くことができますが，GHCではデフォルトではできません．これを有効にする場合，[`DatatypeContexts`拡張](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#extension-DatatypeContexts)を有効にする必要があります．
 [^notice-relaxed-polyrec]: GHCの内部では`RelaxedPolyRec`という拡張も一緒に有効になります．しかし，現在この拡張は実装上の問題でGHC上で無効にすることができないため，ドキュメント上からも削除されています．この記事でもGHCの方針に従って，この拡張は特に扱いませんのでご留意ください．
 
 歴史的経緯で生まれ，互換性のために残されているものの，現状使用が推奨されていない拡張もあります．他に実験的な拡張やかなり大胆な拡張も存在するため，GHC拡張を使用する際は[GHCのユーザーガイド][ghc-user-guide-url]をよく読んでから使用するのが良いでしょう．
@@ -113,7 +113,7 @@ executable program1
 
 この節では，以下の拡張を紹介します．
 
-* `NoImplicitPrelude`: [ユーザーガイド - NoImplicitPrelude拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-NoImplicitPrelude)
+* `NoImplicitPrelude`: [ユーザーガイド - NoImplicitPrelude拡張](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#extension-NoImplicitPrelude)
 
 Haskellでは，[Preludeモジュール][prelude-url]が暗黙的にimportされます．つまり，Haskellプログラムは暗黙に
 
@@ -159,9 +159,9 @@ import MyPrelude
 
 この節では，以下の3つの拡張を紹介します．
 
-* `BinaryLiterals`: [ユーザーガイド - BinaryLiterals拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-BinaryLiterals)
-* `NagativeLiterals`: [ユーザーガイド - NagativeLiterals拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-NegativeLiterals)
-* `HexFloatLiterals`: [ユーザーガイド - HexFloatLiterals拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#ghc-flag--XHexFloatLiterals)
+* `BinaryLiterals`: [ユーザーガイド - BinaryLiterals拡張](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#extension-BinaryLiterals)
+* `NagativeLiterals`: [ユーザーガイド - NagativeLiterals拡張](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#extension-NegativeLiterals)
+* `HexFloatLiterals`: [ユーザーガイド - HexFloatLiterals拡張](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#ghc-flag--XHexFloatLiterals)
 
 Haskellには幾つかのリテラルが存在します．例えば，`'c'`は文字cを表すChar型のリテラルです．`100`は整数100を表す`Num a => a`型のリテラルで，`100.1`は浮動小数点数100.1を表す`Fractional a => a`型のリテラルになります．Haskell標準には他にも幾つかリテラルが存在しますが，特に数値は非常に多様な使われ方がなされるため，他の多くの言語はより強力なリテラル表現を持つことがあります．GHC拡張ではこの背景を元に，リテラルに対する幾つかの拡張を提供しています．`BinaryLiterals`は`Num a => a`型のリテラルに対して，`HexFloatLiterals`は`Fractional a => a`型のリテラルに対して，`NegativeLiterals`はどちらに対してもの拡張を，それぞれ提供します．
 
@@ -191,7 +191,7 @@ SamplePZ
 
 この節では，以下の2つの拡張を紹介します．
 
-* `EmptyCase`: [ユーザーガイド - EmptyCase拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-EmptyCase)
+* `EmptyCase`: [ユーザーガイド - EmptyCase拡張](https://downloads.haskell.org/~ghc/8.4.2/docs/html/users_guide/glasgow_exts.html#extension-EmptyCase)
 * `EmptyDataDeriving`: [ユーザーガイド - EmptyDataDeriving拡張](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#ghc-flag--XEmptyDataDeriving)
 
 Haskellでは，コンストラクタを一切持たない型を定義できます．これは空のデータ型と呼ばれ，次のように書けます．
